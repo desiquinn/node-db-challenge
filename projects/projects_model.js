@@ -14,6 +14,8 @@ function findProjects() {
 // completed true or false not 1 or 0
 }
 
+//stretch: find Project by Id (see ReadMe for Return structure)
+
 function addProject(project) {
     return db('projects')
         .insert(project)
@@ -28,18 +30,18 @@ function addResource(resource) {
         .insert(resource)
 }
 
-function findTasks() {
+function findTasks(id) {
     return db('tasks')
         .select([
             'tasks.id',
-            'projects.name',
+            'projects.name AS project_name',
             'projects.description',
-            'tasks.description',
+            'tasks.description AS task',
             'tasks.notes',
             'tasks.completed'
         ])
         .join('projects', 'projects.id', 'tasks.project_id')
-// project name and project description
+        .where({project_id: id})
 // completed true or false not 1 or 0
 }
 
